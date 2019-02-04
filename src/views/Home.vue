@@ -1,18 +1,25 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <v-btn @click="openModal()">Open modal</v-btn>
+    <v-btn @click="openSnackbar()">Open snackbar</v-btn>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+<script>
+import FooComponent from './FooComponent.vue'
 
-@Component({
-  components: {
-    HelloWorld
+export default {
+  methods: {
+    async openModal () {
+      let response = await this.$modalService.open(FooComponent, {
+        data: '123'
+      })
+      console.log(response)
+    },
+    openSnackbar () {
+      this.$snackbarService.openSuccessSnackbar('Hallo world')
+    }
   }
-})
-export default class Home extends Vue {}
+}
 </script>
